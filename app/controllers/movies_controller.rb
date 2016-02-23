@@ -51,5 +51,31 @@ class MoviesController < ApplicationController
   def change
   end
   
+  def change_update
+    @info = params[:movie]
+    @movie = Movie.find_by(title: @info[:title_check] )
+     
+    if(@movie)
+      @theTitle =  @info[:title]
+      @theRating =  @info[:rating]
+      @theRelease =  @info[:release_date]
+      if @theTitle!='' && @theRating!='' && @theRelease!=''
+        @movie.update_attributes!(movie_params)
+        # @movie.update_attributes!(:rating, @theRating)
+        # @movie.update_attributes!(:release_date, @theRelease)
+        # @movie.update_attributes!(movie_params)
+        flash[:notice] = "#{@movie.title} #{@movie.release_date} #{@movie.rating} was successfully updated."
+      else
+        flash[:notice] = "No updates yet ."
+      end
+    else
+      flash[:notice] = "in else condition"
+    end
+      redirect_to movies_path
+    
+  
+  end
+  
+  
 
 end

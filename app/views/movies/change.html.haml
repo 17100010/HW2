@@ -1,11 +1,10 @@
-Make a new page where the user can enter the name of a movie and below there
-are three text boxes where he can enter the details of name, ratings and/or create date,
-which should be updated. If the user leaves any of the text fields empty then the details
-should remain the same.
-
 %h1 Change a Movie 
 
-= form_tag change_movies_path do
+= form_tag change_update_movies_path, :method => :put do
+
+
+  = label :movie, :title_check, 'Confirm Title'
+  = text_field :movie, 'title_check'
 
   = label :movie, :title, 'Title'
   = text_field :movie, 'title'
@@ -15,6 +14,7 @@ should remain the same.
 
   = label :movie, :release_date, 'Released On'
   = date_select :movie, :release_date
+  
 
   = submit_tag 'Save Changes'
 

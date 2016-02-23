@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :movies do
     collection do
       get 'change'
+      put 'change_update'
     end
   end
   
