@@ -19,9 +19,13 @@ Rails.application.routes.draw do
       get 'change'
       put 'change_update'
     end
+  
+    collection do
+      get 'delete'
+      post 'the_delete'
+    end
+  
   end
-  
-  
   
   
   # Example resource route with options:

@@ -77,5 +77,36 @@ class MoviesController < ApplicationController
   end
   
   
+  def delete
+  end
+  
+  def the_delete
+      @info = params[:movie]
+      @theMovie = @info[:title]
+      @therating = @info[:rating]
+      if(@theMovie!='')
+        @movie = Movie.find_by(title: @info[:title] )
+        
+        if(@movie)
+          @movie.destroy
+          flash[:notice] = "#{@theMovie} was successfully deleted."
+        end
+      end
+      
+      if(@therating!='')
+        # @fromcanada = User.find(:all, :conditions => { :country => 'canada' })
+        # Movie.where(’title = "Requiem for a Dream"’)
+        # @customers = Customer.where('first_name LIKE ?', params[:query])
+        @mov = Movie.where('rating =  ?', @therating)
+        @mov.each do |m|
+          m.destroy
+        end
+        flash[:notice] = "the movies were successfully deleted."
+      end
+      redirect_to movies_path 
+  end
+  
+  
+  
 
 end
