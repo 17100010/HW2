@@ -5,11 +5,11 @@
   
   Include: 
   
-  - @all_ratings.each do |rating|
+  - @all_ratings.keys.each do |rating|
   
     = rating
   
-    = check_box_tag "ratings[#{rating}]", 'yes', true
+    = check_box_tag "ratings[#{rating}]", 'yes' , @all_ratings[rating]
 
   = submit_tag 'Refresh'
 

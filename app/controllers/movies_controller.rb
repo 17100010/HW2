@@ -13,25 +13,47 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @all_ratings = Movie.all_ratings
-    @var =  params[:sort_by]
-    @values = params[:ratings].try(:keys)
-    # if @var=='title' or @var =='release_date'
-    #   @movies=Movie.order(@var)  
-    # else
-    #   @movies = Movie.all
-    # end
-    # @movies = Movie.where(rating: @ratin).all
-    # @movies = Movie.find(:all, :conditions => ['rating = ?', params[:rating].try(:keys)])
-    @movies = Movie.where(:rating => @values)
-    if(@movies)
-      if @var=='title' or @var =='release_date'
-         @movies=@movies.order(@var)  
-      else
-         @movies
-      end
-    end
     
+    
+    if (Movie.returnC==0)
+      @all_ratings = Hash['G' => true,'PG' =>true,'PG-13' => true,'R' => true,'NC-17' => true]
+      @movies = Movie.all
+      Movie.counter()
+      
+    else
+      @all_ratings = Movie.all_ratings
+      @var =  params[:sort_by]
+      @values = params[:ratings].try(:keys)
+      # if @var=='title' or @var =='release_date'
+      #   @movies=Movie.order(@var)  
+      # else
+      #   @movies = Movie.all
+      # end
+      # @movies = Movie.where(rating: @ratin).all
+      # @movies = Movie.find(:all, :conditions => ['rating = ?', params[:rating].try(:keys)])
+      
+      @movies = Movie.where(:rating => @values)
+      if(@movies)
+        if @var=='title' or @var =='release_date'
+           @movies=@movies.order(@var)  
+        else
+           @movies
+        end
+      end
+      
+      @all_ratings = Movie.all_ratings
+      
+      if(@values)
+        @all_ratings.each do |rat|
+          @values.each do |val|
+            if val[0] == rat[0]
+              @all_ratings[rat[0]] = true
+            end
+          end
+        end
+      end
+    
+    end  
     
   end
 
