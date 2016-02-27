@@ -1,5 +1,7 @@
 class MoviesController < ApplicationController
 
+
+
   def movie_params
     params.require(:movie).permit(:title, :rating, :description, :release_date)
   end
@@ -11,12 +13,25 @@ class MoviesController < ApplicationController
   end
 
   def index
+    @all_ratings = Movie.all_ratings
     @var =  params[:sort_by]
-    if @var=='title' or @var =='release_date'
-      @movies=Movie.order(@var)  
-    else
-      @movies = Movie.all
+    @values = params[:ratings].try(:keys)
+    # if @var=='title' or @var =='release_date'
+    #   @movies=Movie.order(@var)  
+    # else
+    #   @movies = Movie.all
+    # end
+    # @movies = Movie.where(rating: @ratin).all
+    # @movies = Movie.find(:all, :conditions => ['rating = ?', params[:rating].try(:keys)])
+    @movies = Movie.where(:rating => @values)
+    if(@movies)
+      if @var=='title' or @var =='release_date'
+         @movies=@movies.order(@var)  
+      else
+         @movies
+      end
     end
+    
     
   end
 
@@ -106,7 +121,8 @@ class MoviesController < ApplicationController
       redirect_to movies_path 
   end
   
-  
+  def filter
+  end
   
 
 end

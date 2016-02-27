@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       get 'delete'
       post 'the_delete'
     end
+    
   
   end
   
