@@ -52,12 +52,8 @@ class MoviesController < ApplicationController
       
       
       if(@values)
-        @all_ratings.each do |rat|
-          @values.each do |val|
-            if val[0] == rat[0]
-              @all_ratings[rat[0]] = true
-            end
-          end
+        @values.each do |val|
+          @all_ratings[val] = true
         end
       end
     
